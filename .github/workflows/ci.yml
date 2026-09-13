@@ -26,7 +26,7 @@ jobs:
       DATABASE_URL: postgresql://brixchat:brixchat@localhost:5434/brixchat
       REDIS_URL: redis://localhost:6381
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v4
         with: { version: 11.7.0 }
       - uses: actions/setup-node@v4
