@@ -80,7 +80,7 @@
     "test:e2e:debug": "playwright test --debug"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.63.0",
     "@types/node": "^22.19.19",
     "drizzle-orm": "^0.45.2",
     "postgres": "^3.4.9",
