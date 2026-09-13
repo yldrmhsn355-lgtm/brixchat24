@@ -1,0 +1,16 @@
+packages:
+  - apps/*
+  - packages/*
+
+allowBuilds:
+  '@openrouter/sdk': false
+  '@whiskeysockets/baileys': true
+  esbuild: true
+  ffmpeg-static: true
+  msgpackr-extract: true
+  protobufjs: true
+  sharp: true
+  unrs-resolver: true
+
+patchedDependencies:
+  libsignal@6.0.0: patches/libsignal@6.0.0.patch

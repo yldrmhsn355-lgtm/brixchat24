@@ -1,0 +1,17 @@
+{
+  "description": "Transitional ceiling for direct database access in apps/api. Lower counts as queries move into packages/database repositories; never raise them.",
+  "directSqlAwaitCounts": {
+    "apps/api/src/admin-routes.ts": 35,
+    "apps/api/src/app.ts": 4,
+    "apps/api/src/auth-routes.ts": 23,
+    "apps/api/src/conversation-ops-routes.ts": 20,
+    "apps/api/src/crm-routes.ts": 23,
+    "apps/api/src/milestone5-routes.ts": 29,
+    "apps/api/src/milestone6-routes.ts": 13,
+    "apps/api/src/product-routes.ts": 24
+  },
+  "allowedDatabaseClientImports": [
+    "apps/api/src/conversation-ops-routes.ts",
+    "apps/api/src/milestone5-routes.ts"
+  ]
+}

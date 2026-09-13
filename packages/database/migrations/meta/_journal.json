@@ -1,0 +1,356 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1784208000000,
+      "tag": "0000_milestone_one",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784214000000,
+      "tag": "0001_live_messaging",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1784232000000,
+      "tag": "0002_auth_channels_templates_quick_replies",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1784246400000,
+      "tag": "0003_bitrix24_and_conversation_operations",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784260800000,
+      "tag": "0004_media_search_automations_open_channels",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1784304000000,
+      "tag": "0005_production_commercial_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1784311200000,
+      "tag": "0006_worker_lock_recovery",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1784314800000,
+      "tag": "0007_channel_user_ownership",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "8",
+      "when": 1784318400000,
+      "tag": "0008_backfill_channel_ownership",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "8",
+      "when": 1784322000000,
+      "tag": "0009_channel_soft_delete",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "8",
+      "when": 1784325600000,
+      "tag": "0010_pending_message_status_events",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "8",
+      "when": 1785110400000,
+      "tag": "0011_whatsapp_template_center",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "8",
+      "when": 1785114000000,
+      "tag": "0012_quick_reply_center",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "8",
+      "when": 1785142800000,
+      "tag": "0013_label_operations_center",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "8",
+      "when": 1785150000000,
+      "tag": "0014_provider_neutral_channels",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "8",
+      "when": 1785168000000,
+      "tag": "0015_whatsapp_web_sessions",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "8",
+      "when": 1785384000000,
+      "tag": "0016_automation_reliability",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "8",
+      "when": 1785387600000,
+      "tag": "0017_automation_platform_p0",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "8",
+      "when": 1785416400000,
+      "tag": "0018_bitrix_open_channel_bindings",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "8",
+      "when": 1785542400000,
+      "tag": "0019_files_documents",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "8",
+      "when": 1785542460000,
+      "tag": "0020_file_version_storage_key",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "8",
+      "when": 1785632400000,
+      "tag": "0021_queue_recovery_retention",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "8",
+      "when": 1785636000000,
+      "tag": "0022_supabase_public_api_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "8",
+      "when": 1785680000000,
+      "tag": "0023_supabase_public_schema_usage_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "8",
+      "when": 1785747600000,
+      "tag": "0024_user_session_workspace",
+      "breakpoints": true
+    },
+    {
+      "idx": 25,
+      "version": "8",
+      "when": 1785753000000,
+      "tag": "0025_supabase_advisor_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 26,
+      "version": "8",
+      "when": 1785754800000,
+      "tag": "0026_rls_initplan_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 27,
+      "version": "8",
+      "when": 1785760200000,
+      "tag": "0027_high_value_fk_indexes",
+      "breakpoints": true
+    },
+    {
+      "idx": 28,
+      "version": "8",
+      "when": 1785765000000,
+      "tag": "0028_multi_conversation_crm_entity_links",
+      "breakpoints": true
+    },
+    {
+      "idx": 29,
+      "version": "8",
+      "when": 1785852000000,
+      "tag": "0029_bitrix_per_user_connections",
+      "breakpoints": true
+    },
+    {
+      "idx": 30,
+      "version": "8",
+      "when": 1785888000000,
+      "tag": "0030_whatsapp_web_message_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 31,
+      "version": "8",
+      "when": 1785891600000,
+      "tag": "0031_crm_review_queue_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 32,
+      "version": "8",
+      "when": 1785924000000,
+      "tag": "0032_conversation_identity_partial_unique",
+      "breakpoints": true
+    },
+    {
+      "idx": 33,
+      "version": "8",
+      "when": 1785924600000,
+      "tag": "0033_message_status_event_org_scope",
+      "breakpoints": true
+    },
+    {
+      "idx": 34,
+      "version": "8",
+      "when": 1785925200000,
+      "tag": "0034_whatsapp_web_inbound_retry_queue",
+      "breakpoints": true
+    },
+    {
+      "idx": 35,
+      "version": "8",
+      "when": 1785925800000,
+      "tag": "0035_whatsapp_web_rls_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 36,
+      "version": "8",
+      "when": 1785926400000,
+      "tag": "0036_ai_agent_platform",
+      "breakpoints": true
+    },
+    {
+      "idx": 37,
+      "version": "8",
+      "when": 1785928800000,
+      "tag": "0037_platform_admin_flag",
+      "breakpoints": true
+    },
+    {
+      "idx": 38,
+      "version": "8",
+      "when": 1785929400000,
+      "tag": "0038_bitrix_market_cold_install",
+      "breakpoints": true
+    },
+    {
+      "idx": 39,
+      "version": "8",
+      "when": 1786838400000,
+      "tag": "0039_bitrix_member_scope",
+      "breakpoints": true
+    },
+    {
+      "idx": 40,
+      "version": "8",
+      "when": 1786839000000,
+      "tag": "0040_tenant_isolation_hardening",
+      "breakpoints": true
+    },
+    {
+      "idx": 41,
+      "version": "8",
+      "when": 1787011200000,
+      "tag": "0041_bitrix_user_crm_policy",
+      "breakpoints": true
+    },
+    {
+      "idx": 42,
+      "version": "8",
+      "when": 1787011800000,
+      "tag": "0042_bitrix24_automation_webhook",
+      "breakpoints": true
+    },
+    {
+      "idx": 43,
+      "version": "8",
+      "when": 1787011800001,
+      "tag": "0043_subscription_billing",
+      "breakpoints": true
+    },
+    {
+      "idx": 44,
+      "version": "8",
+      "when": 1787270400000,
+      "tag": "0044_line_based_sales_activation",
+      "breakpoints": true
+    },
+    {
+      "idx": 45,
+      "version": "8",
+      "when": 1789041600000,
+      "tag": "0045_api_tenant_scope_rollout",
+      "breakpoints": true
+    },
+    {
+      "idx": 46,
+      "version": "8",
+      "when": 1789041600001,
+      "tag": "0046_tenant_child_and_identity_scope",
+      "breakpoints": true
+    },
+    {
+      "idx": 47,
+      "version": "8",
+      "when": 1789041600002,
+      "tag": "0047_tenant_relationship_integrity",
+      "breakpoints": true
+    },
+    {
+      "idx": 48,
+      "version": "8",
+      "when": 1789041600003,
+      "tag": "0048_campaigns",
+      "breakpoints": true
+    },
+    {
+      "idx": 49,
+      "version": "8",
+      "when": 1789041600004,
+      "tag": "0049_platform_operations_center",
+      "breakpoints": true
+    }
+  ]
+}

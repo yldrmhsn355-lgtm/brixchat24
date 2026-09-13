@@ -1,0 +1,18 @@
+groups:
+  - name: brixchat-production
+    rules:
+      - alert: ApiHighErrorRate
+        expr: sum(rate(http_requests_total{status=~"5.."}[5m])) / sum(rate(http_requests_total[5m])) > 0.01
+        for: 10m
+        labels: { severity: page }
+        annotations: { summary: "API error budget is burning" }
+      - alert: ApiP95LatencyHigh
+        expr: histogram_quantile(0.95, sum by (le) (rate(http_request_duration_seconds_bucket[5m]))) > 0.75
+        for: 10m
+        labels: { severity: ticket }
+        annotations: { summary: "API p95 latency exceeds 750ms" }
+      - alert: WorkerHeartbeatMissing
+        expr: time() - brixchat_worker_last_heartbeat_timestamp_seconds > 120
+        for: 2m
+        labels: { severity: page }
+        annotations: { summary: "Worker heartbeat is stale" }

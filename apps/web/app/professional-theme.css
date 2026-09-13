@@ -1,0 +1,381 @@
+/* Brixchat24: neutral surfaces, one restrained green accent.
+   Inspired by designmd.ai/chef/verdana-health-design-system.
+   Legacy purple/indigo variable names remain aliases for compatibility. */
+:root,
+html[data-app-theme="light"] {
+  --ink: #202824;
+  --muted: #626d67;
+  --line: #dee4df;
+  --soft: #f6f7f5;
+  --panel: #fff;
+  --brand: #176b52;
+  --brand-hover: #125640;
+  --brand-soft: #e8f1ec;
+  --surface-canvas: #f6f7f5;
+  --surface-subtle: #eff2ee;
+  --text-strong: #202824;
+  --text-muted: #626d67;
+  --border-subtle: #dee4df;
+  --app-canvas: #f6f7f5;
+  --app-canvas-raised: #f0f3ef;
+  --app-surface: #fff;
+  --app-surface-raised: #fafbf9;
+  --app-surface-soft: #eff2ee;
+  --app-border: #dee4df;
+  --app-border-strong: #aebfb4;
+  --app-text: #202824;
+  --app-text-muted: #626d67;
+  --app-purple: #176b52;
+  --app-indigo: #176b52;
+  --app-cyan: #28735c;
+  --app-success: #23754f;
+  --app-warning: #916014;
+  --app-danger: #b43b39;
+  --chat-canvas: #f1f3ee;
+  --chat-outgoing: #e2efdf;
+  --focus-ring: 0 0 0 3px rgb(23 107 82 / 18%);
+  --shadow-sm: 0 1px 2px rgb(20 32 25 / 5%);
+  --shadow-md: 0 6px 20px rgb(20 32 25 / 7%);
+  --shadow-lg: 0 16px 40px rgb(20 32 25 / 12%);
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+}
+
+html[data-app-theme="dark"] {
+  --app-canvas: #111714;
+  --app-canvas-raised: #171e1a;
+  --app-surface: #1c2520;
+  --app-surface-raised: #222c26;
+  --app-surface-soft: #29362e;
+  --app-border: #344139;
+  --app-border-strong: #4d6557;
+  --app-text: #e8ede8;
+  --app-text-muted: #a3b0a6;
+  --app-purple: #85bda3;
+  --app-indigo: #85bda3;
+  --app-cyan: #85bda3;
+  --app-success: #85bda3;
+  --app-warning: #d3b575;
+  --app-danger: #e2938d;
+  --chat-canvas: #151d18;
+  --chat-outgoing: #294b38;
+}
+
+html[data-app-theme] .app-shell-premium {
+  font-family: var(--font-sans);
+  --brand: var(--app-purple);
+  --brand-hover: #125640;
+  --brand-soft: color-mix(in srgb, var(--app-purple) 10%, var(--app-surface));
+  --focus-ring: 0 0 0 3px rgb(23 107 82 / 18%);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 5%);
+  --shadow-md: 0 6px 20px rgb(0 0 0 / 8%);
+  --shadow-lg: 0 16px 40px rgb(0 0 0 / 16%);
+  background: var(--app-canvas);
+}
+html[data-app-theme] .app-shell-premium :is(.primary-button, .button.primary) {
+  background: #176b52;
+  color: #fff;
+  box-shadow: none;
+}
+html[data-app-theme]
+  .app-shell-premium
+  :is(.primary-button, .button.primary):hover:not(:disabled) {
+  background: #125640;
+}
+html[data-app-theme] .premium-sidebar :is(.brand-mark, .workspace-logo) {
+  background: #176b52;
+  color: #fff;
+  box-shadow: none;
+}
+html[data-app-theme] .premium-sidebar .nav-icon-shell {
+  background: transparent;
+  color: var(--app-text-muted);
+  box-shadow: none;
+}
+html[data-app-theme] .premium-sidebar .nav-item.active .nav-icon-shell {
+  color: var(--app-purple);
+}
+html[data-app-theme] .inbox-shell-premium .conversation-list-summary strong,
+html[data-app-theme] .inbox-shell-premium .conversation-list-summary > span {
+  color: var(--app-text);
+}
+html[data-app-theme] .inbox-shell-premium .conversation-list-summary small {
+  color: var(--app-text-muted);
+}
+html[data-app-theme] .inbox-shell-premium * {
+  font-family: inherit;
+}
+html[data-app-theme] .inbox-shell-premium :is(code, pre) {
+  font-family: ui-monospace, monospace;
+}
+html[data-app-theme] .inbox-shell-premium .row-title strong {
+  color: var(--app-text);
+}
+html[data-app-theme]
+  .inbox-shell-premium
+  .conversation-row
+  :is(.preview, time) {
+  color: var(--app-text-muted);
+}
+html[data-app-theme]
+  .inbox-shell-premium
+  .conversation-row
+  :is(.avatar, .contact-avatar) {
+  box-shadow: none;
+}
+html[data-app-theme] .app-shell-premium .premium-management-page::before {
+  display: none;
+}
+html[data-app-theme] .app-shell-premium .premium-management-page a {
+  color: var(--app-purple);
+}
+
+html[data-app-theme] .app-shell-premium::before,
+html[data-app-theme] .premium-sidebar::after,
+html[data-app-theme] .theme-toggle::after {
+  display: none;
+}
+
+html[data-app-theme] .premium-sidebar,
+html[data-app-theme] .app-shell-premium .mobile-nav-drawer {
+  background: var(--app-canvas-raised);
+  border-color: var(--app-border);
+  box-shadow: none;
+}
+
+html[data-app-theme]
+  .app-shell-premium
+  :is(
+    .premium-topbar,
+    .chat-header,
+    .conversation-column,
+    .conversation-column .list-toolbar,
+    .composer-row,
+    .search-dialog,
+    .notification-popover,
+    .workspace-menu,
+    .conversation-filter-menu,
+    .contact-panel > section,
+    .contact-panel > .contact-card
+  ) {
+  background: var(--app-surface);
+  border-color: var(--app-border);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+html[data-app-theme]
+  .app-shell-premium
+  :is(.ui-card, .premium-card, .premium-hero) {
+  background-image: none;
+  box-shadow: var(--shadow-sm);
+  border-radius: 12px;
+}
+
+html[data-app-theme] .premium-sidebar .nav-item.active,
+html[data-app-theme] .inbox-shell-premium .conversation-row.selected {
+  background: var(--brand-soft);
+  color: var(--app-purple);
+  box-shadow: inset 3px 0 var(--app-purple);
+}
+
+html[data-app-theme] .app-shell-premium :is(.ui-button-primary, .send-button),
+.ui-button-primary,
+.login-submit {
+  background: #176b52;
+  color: #fff;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+html[data-app-theme]
+  .app-shell-premium
+  :is(.ui-button-primary, .send-button):hover,
+.ui-button-primary:hover:not(:disabled),
+.login-submit:hover:not(:disabled) {
+  background: #125640;
+}
+
+html[data-app-theme] .app-shell-premium :is(input, select, textarea) {
+  background-color: var(--app-surface);
+  color: var(--app-text);
+  border-color: var(--app-border);
+}
+
+html[data-app-theme] .inbox-shell-premium :is(.messages, .chat-column) {
+  background: var(--chat-canvas);
+}
+
+html[data-app-theme] .inbox-shell-premium .message {
+  border: 1px solid var(--app-border);
+  box-shadow: 0 1px 1px rgb(20 32 25 / 4%);
+  border-radius: 12px;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+html[data-app-theme] .inbox-shell-premium .message.incoming {
+  background: var(--app-surface);
+  border-top-left-radius: 4px;
+}
+
+html[data-app-theme] .inbox-shell-premium .message.outgoing {
+  background: var(--chat-outgoing);
+  border-color: color-mix(in srgb, var(--chat-outgoing) 85%, #176b52);
+  border-top-right-radius: 4px;
+}
+
+html[data-app-theme]
+  .inbox-shell-premium
+  .message
+  :is(.message-text, footer, footer span, a) {
+  color: var(--app-text);
+}
+
+html[data-app-theme] .inbox-shell-premium .composer-row {
+  border-radius: 12px;
+}
+
+html[data-app-theme] .inbox-shell-premium .composer-row:focus-within {
+  border-color: var(--app-purple);
+  box-shadow: var(--focus-ring);
+}
+
+html[data-app-theme] .inbox-shell-premium .contact-panel {
+  background: var(--app-canvas-raised);
+}
+
+.login-submit::after {
+  display: none;
+}
+.premium-login-page,
+.login-form-panel {
+  background: #f6f7f5;
+}
+.premium-login-card {
+  color: #202824;
+  background: #fff;
+  border: 1px solid #dee4df;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgb(20 32 25 / 7%);
+  backdrop-filter: none;
+}
+.premium-login-card::before,
+.login-form-panel::before,
+.login-grid {
+  display: none;
+}
+.premium-login-card .login-input-wrap input:focus {
+  background: #fff;
+  border-color: #176b52;
+  box-shadow: 0 0 0 3px rgb(23 107 82 / 14%);
+}
+.premium-login-card .login-input-wrap > svg,
+.premium-login-card .password-toggle {
+  color: #626d67;
+}
+.premium-login-card .password-toggle:hover {
+  color: #176b52;
+  background: #e8f1ec;
+}
+.premium-login-card .login-field-error {
+  color: #b43b39;
+}
+.premium-login-card .login-form-error {
+  color: #9c302f;
+  background: #fff1ee;
+}
+.login-brand-mark {
+  background: #176b52;
+  box-shadow: none;
+}
+.login-brand-panel {
+  background: #1c2821;
+}
+.digital-horizon,
+.connection-artwork {
+  display: none;
+}
+.activity-preview {
+  background: #25342b;
+  border-radius: 12px;
+  box-shadow: none;
+}
+.activity-preview .chart-line {
+  stroke: #85bda3;
+  filter: none;
+}
+.activity-preview .chart-area {
+  fill: rgb(133 189 163 / 12%);
+}
+.feature-badge {
+  background: rgb(255 255 255 / 5%);
+  border-color: rgb(255 255 255 / 14%);
+  box-shadow: none;
+}
+.premium-login-card :is(h1, h2, label) {
+  color: #202824;
+}
+.premium-login-card :is(p, small) {
+  color: #626d67;
+}
+.premium-login-card input {
+  background: #fff;
+  color: #202824;
+  border-color: #dee4df;
+}
+.premium-login-card a {
+  color: #176b52;
+}
+.premium-login-card header p,
+.premium-login-card .premium-auth-links a {
+  color: #176b52;
+}
+.premium-login-card .login-divider span {
+  background: #fff;
+  color: #626d67;
+}
+.login-form-panel .secure-connection {
+  color: #626d67;
+}
+.login-form-panel .secure-connection svg {
+  color: #176b52;
+}
+
+/* Route CSS loads separately; specificity keeps platform colors consistent. */
+html .pa-shell {
+  --pa-bg: #f6f7f5;
+  --pa-text: #202824;
+  --pa-muted: #626d67;
+  --pa-line: #dee4df;
+  --pa-blue: #176b52;
+  --pa-green: #23754f;
+  font-family: var(--font-sans);
+}
+html .pa-sidebar {
+  background: #1c2821;
+}
+html .pa-brand > span {
+  background: #176b52;
+  border-radius: 10px;
+}
+html .pa-kpi {
+  border-top: 1px solid var(--pa-line);
+  border-radius: 12px;
+}
+html .pa-panel {
+  border-radius: 12px;
+  box-shadow: none;
+}
+html .pa-shell .pa-primary {
+  background: #176b52;
+}
+html .pa-shell .danger.pa-primary {
+  background: #b43b39;
+}
+
+@media (max-width: 760px) {
+  html[data-app-theme] .inbox-shell-premium .message {
+    font-size: 16px;
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": [
+    "./acceptance-*.ts",
+    "./backup-restore-test.ts",
+    "./external-acceptance.ts",
+    "./release-gate.ts",
+    "./whatsapp-web-preflight.ts"
+  ]
+}

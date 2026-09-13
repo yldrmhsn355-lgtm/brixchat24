@@ -1,0 +1,25 @@
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
+import * as schema from "./schema";
+export const createDatabase = (url: string) => {
+  const client = postgres(url, { max: 10 });
+  return { db: drizzle(client, { schema }), client };
+};
+export * from "./schema";
+export * from "./repositories/index";
+export * from "./repositories/worker";
+export * from "./repositories/delivery-failure";
+export * from "./repositories/crm-worker";
+export * from "./repositories/template-center";
+export * from "./repositories/automation";
+export * from "./repositories/crm";
+export * from "./repositories/product";
+export * from "./repositories/files";
+export * from "./repositories/milestone5";
+export * from "./repositories/auth-workspaces";
+export * from "./repositories/platform-admin";
+export * from "./repositories/ai";
+export * from "./repositories/billing";
+export * from "./tenant-scope";
+export * from "./scoped-router";
+export * from "./repositories/campaigns";

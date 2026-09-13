@@ -1,0 +1,8 @@
+services:
+  api:
+    environment:
+      WHATSAPP_WEB_ENABLED: "true"
+
+  worker:
+    environment:
+      WHATSAPP_WEB_ENABLED: "true"

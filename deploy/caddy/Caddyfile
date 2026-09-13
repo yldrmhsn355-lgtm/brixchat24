@@ -1,0 +1,56 @@
+{
+  email {$ACME_EMAIL}
+  servers {
+    protocols h1 h2
+    trusted_proxies static private_ranges
+    client_ip_headers X-Forwarded-For X-Real-IP
+  }
+}
+
+(security_headers) {
+  header {
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+    Content-Security-Policy "default-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; connect-src 'self' https://api.brixchat.example wss://api.brixchat.example; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+    Referrer-Policy "strict-origin-when-cross-origin"
+    X-Content-Type-Options "nosniff"
+    X-Frame-Options "DENY"
+    Permissions-Policy "camera=(), geolocation=(), payment=(), microphone=(self)"
+    -Server
+  }
+}
+
+app.brixchat.example {
+  import security_headers
+  request_body { max_size 25MB }
+  # Keep the browser same-origin in production. The web image can therefore
+  # use relative /api URLs without baking a localhost address into the bundle.
+  handle /api/* {
+    reverse_proxy api:4000
+  }
+  reverse_proxy web:3000
+}
+
+api.brixchat.example {
+  import security_headers
+  request_body { max_size 30MB }
+  reverse_proxy api:4000
+}
+
+webhooks.brixchat.example {
+  import security_headers
+  @meta path /webhooks/meta/*
+  @bitrix path /webhooks/bitrix24/*
+  handle @meta {
+    request_body {
+      max_size 2MB
+    }
+    reverse_proxy api:4000
+  }
+  handle @bitrix {
+    request_body {
+      max_size 2MB
+    }
+    reverse_proxy api:4000
+  }
+  respond 404
+}

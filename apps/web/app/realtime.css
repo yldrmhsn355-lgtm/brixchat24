@@ -1,0 +1,44 @@
+.inbox-state {
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+.inbox-state.error {
+  color: #b7273c;
+}
+.inbox-state.channel-access-warning {
+  margin: 12px;
+  padding: 18px 14px;
+  border: 1px solid var(--amber);
+  border-radius: 12px;
+  background: var(--amber-soft);
+  color: var(--amber);
+}
+.inbox-state button {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 7px 10px;
+}
+.message.failed {
+  background: var(--danger-soft);
+  border: 1px solid var(--danger);
+}
+.message-error {
+  color: var(--danger) !important;
+  font-size: 9px !important;
+  margin-top: 6px !important;
+}
+.channel-health.reconnecting {
+  color: var(--amber);
+  background: var(--amber-soft);
+}
+.channel-health.offline {
+  color: var(--danger);
+  background: var(--danger-soft);
+}

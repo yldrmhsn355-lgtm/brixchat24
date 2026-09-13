@@ -1,0 +1,31 @@
+{
+  "name": "@brixchat/worker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "tsx src/index.ts",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@brixchat/ai": "workspace:*",
+    "@brixchat/config": "workspace:*",
+    "@brixchat/database": "workspace:*",
+    "@brixchat/integrations": "workspace:*",
+    "@brixchat/whatsapp-web": "workspace:*",
+    "bullmq": "^5.58.5",
+    "ioredis": "5.10.1",
+    "nodemailer": "^9.0.5",
+    "postgres": "^3.4.7",
+    "sharp": "^0.35.3",
+    "tsx": "^4.20.5"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^8.0.1",
+    "vitest": "^3.2.4"
+  }
+}

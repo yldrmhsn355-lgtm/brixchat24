@@ -1,0 +1,23 @@
+name: Production candidate
+on:
+  workflow_dispatch:
+permissions: { contents: read, packages: write, id-token: write }
+jobs:
+  container:
+    runs-on: ubuntu-latest
+    env:
+      ACME_EMAIL: ci@example.invalid
+      BRIXCHAT_API_IMAGE: brixchat24-api:production-candidate
+      BRIXCHAT_WORKER_IMAGE: brixchat24-worker:production-candidate
+      BRIXCHAT_WEB_IMAGE: brixchat24-web:production-candidate
+      BRIXCHAT_API_ENV_FILE: .env.production.example
+      BRIXCHAT_WORKER_ENV_FILE: .env.production.example
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - run: docker compose -f docker-compose.production.yml config
+      - run: docker compose -f docker-compose.production.yml build api worker web
+      - uses: aquasecurity/trivy-action@0.28.0
+        with: { scan-type: fs, severity: CRITICAL, exit-code: "1" }
+      - name: Deployment remains an explicit environment approval
+        run: echo "Build verified; configure protected production environment before adding deployment."

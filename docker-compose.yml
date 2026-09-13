@@ -1,0 +1,166 @@
+name: brixchat24-live
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: brixchat
+      POSTGRES_USER: brixchat
+      POSTGRES_PASSWORD: brixchat
+    ports: ["${POSTGRES_PORT:-5434}:5432"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U brixchat -d brixchat"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  redis:
+    image: redis:7.4-alpine
+    ports: ["${REDIS_PORT:-6381}:6379"]
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  migrate:
+    image: brixchat24-api
+    environment:
+      DATABASE_URL: postgresql://brixchat:brixchat@postgres:5432/brixchat
+    command:
+      [
+        "node",
+        "node_modules/tsx/dist/cli.mjs",
+        "packages/database/src/migrate.ts",
+      ]
+    depends_on:
+      postgres: { condition: service_healthy }
+  api:
+    image: brixchat24-api
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://brixchat:brixchat@postgres:5432/brixchat
+      REDIS_URL: redis://redis:6379
+      JWT_ACCESS_SECRET: local-development-secret-change-me-now
+      JWT_REFRESH_SECRET: local-refresh-secret-change-me-now
+      ACCESS_TOKEN_TTL_MINUTES: 15
+      REFRESH_TOKEN_TTL_DAYS: 30
+      WEB_PUBLIC_URL: http://localhost:${WEB_PORT:-3300}
+      API_PUBLIC_URL: http://localhost:${API_PORT:-4400}
+      COOKIE_SECURE: "false"
+      COOKIE_SAME_SITE: lax
+      EMAIL_PROVIDER: console
+      MESSAGING_PROVIDER_MODE: meta
+      WHATSAPP_WEB_ENABLED: ${WHATSAPP_WEB_ENABLED:-false}
+      FAKE_PROVIDER_MODE: success
+      META_WHATSAPP_API_VERSION: v25.0
+      META_WHATSAPP_APP_SECRET: ${META_WHATSAPP_APP_SECRET:-local-app-secret}
+      META_WHATSAPP_VERIFY_TOKEN: local-verify-token
+      APP_ENCRYPTION_KEY: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      BITRIX24_CLIENT_ID: ${BITRIX24_CLIENT_ID:-}
+      BITRIX24_CLIENT_SECRET: ${BITRIX24_CLIENT_SECRET:-}
+      OBJECT_STORAGE_PROVIDER: local
+      OBJECT_STORAGE_LOCAL_PATH: /data/media
+      MALWARE_SCANNER_PROVIDER: noop
+      METRICS_API_KEY: local-metrics-key
+      AI_ENABLED: ${AI_ENABLED:-false}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      AI_DEFAULT_MODEL: ${AI_DEFAULT_MODEL:-}
+      AI_FALLBACK_MODEL: ${AI_FALLBACK_MODEL:-}
+      AI_EMBEDDING_MODEL: ${AI_EMBEDDING_MODEL:-}
+    volumes:
+      - media_data:/data/media
+    ports: ["${API_PORT:-4400}:4000"]
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:4000/health').then(r=>{if(!r.ok)process.exit(1)})",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  worker:
+    image: brixchat24-worker
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://brixchat:brixchat@postgres:5432/brixchat
+      REDIS_URL: redis://redis:6379
+      # Docker E2E uses the deterministic fake channel from the development seed.
+      # Railway production overrides this with the required `meta` provider.
+      MESSAGING_PROVIDER_MODE: ${MESSAGING_PROVIDER_MODE:-fake}
+      WHATSAPP_WEB_ENABLED: ${WHATSAPP_WEB_ENABLED:-false}
+      APP_ENCRYPTION_KEY: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      WORKER_HEALTH_PORT: 4100
+      BITRIX24_FAKE_SCENARIO: ${BITRIX24_FAKE_SCENARIO:-success}
+      OBJECT_STORAGE_PROVIDER: local
+      OBJECT_STORAGE_LOCAL_PATH: /data/media
+      MALWARE_SCANNER_PROVIDER: noop
+      AUTOMATION_MAX_DEPTH: 5
+      AUTOMATION_MAX_ACTIONS_PER_RUN: 20
+      API_PUBLIC_URL: http://api:4000
+      AI_ENABLED: ${AI_ENABLED:-false}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      AI_DEFAULT_MODEL: ${AI_DEFAULT_MODEL:-}
+      AI_FALLBACK_MODEL: ${AI_FALLBACK_MODEL:-}
+      AI_EMBEDDING_MODEL: ${AI_EMBEDDING_MODEL:-}
+      AI_WORKER_CONCURRENCY: ${AI_WORKER_CONCURRENCY:-2}
+    volumes:
+      - media_data:/data/media
+    depends_on:
+      migrate: { condition: service_completed_successfully }
+      postgres: { condition: service_healthy }
+      redis: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:4100').then(r=>{if(!r.ok)process.exit(1)})",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+  web:
+    image: brixchat24-web
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-4400}
+        NEXT_PUBLIC_REALTIME_URL: http://localhost:${API_PORT:-4400}/api/v1/realtime
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-4400}
+      NEXT_PUBLIC_REALTIME_URL: http://localhost:${API_PORT:-4400}/api/v1/realtime
+    ports: ["${WEB_PORT:-3300}:3000"]
+    depends_on:
+      api: { condition: service_healthy }
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://localhost:3000/app/inbox').then(r=>{if(!r.ok)process.exit(1)})",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+volumes:
+  postgres_data:
+  redis_data:
+  media_data:

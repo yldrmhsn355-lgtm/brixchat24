@@ -1,0 +1,99 @@
+services:
+  caddy:
+    image: caddy:2.10-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      ACME_EMAIL: ${ACME_EMAIL:?required}
+    volumes:
+      - ./deploy/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    networks: [edge]
+    security_opt: [no-new-privileges:true]
+  api:
+    image: ${BRIXCHAT_API_IMAGE:?required}
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    restart: unless-stopped
+    env_file: ${BRIXCHAT_API_ENV_FILE:-/etc/brixchat/api.env}
+    secrets: [jwt_access_secret, jwt_refresh_secret, app_encryption_key]
+    environment:
+      JWT_ACCESS_SECRET_FILE: /run/secrets/jwt_access_secret
+      JWT_REFRESH_SECRET_FILE: /run/secrets/jwt_refresh_secret
+      APP_ENCRYPTION_KEY_FILE: /run/secrets/app_encryption_key
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    networks: [private, edge]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:4000/health/ready').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+  worker:
+    image: ${BRIXCHAT_WORKER_IMAGE:?required}
+    build:
+      context: .
+      dockerfile: apps/worker/Dockerfile
+    restart: unless-stopped
+    env_file: ${BRIXCHAT_WORKER_ENV_FILE:-/etc/brixchat/worker.env}
+    secrets: [app_encryption_key]
+    environment:
+      APP_ENCRYPTION_KEY_FILE: /run/secrets/app_encryption_key
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    networks: [private]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:'+(process.env.PORT||process.env.WORKER_HEALTH_PORT||'4100')).then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+  web:
+    image: ${BRIXCHAT_WEB_IMAGE:?required}
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    read_only: true
+    tmpfs: [/tmp]
+    security_opt: [no-new-privileges:true]
+    networks: [edge]
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:3000/login').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+networks:
+  private: { internal: true }
+  edge: {}
+secrets:
+  jwt_access_secret: { file: /etc/brixchat/secrets/jwt_access }
+  jwt_refresh_secret: { file: /etc/brixchat/secrets/jwt_refresh }
+  app_encryption_key: { file: /etc/brixchat/secrets/encryption_key }
+volumes:
+  caddy_data: {}
+  caddy_config: {}
