@@ -17,12 +17,12 @@
     "@brixchat/database": "workspace:*",
     "@brixchat/integrations": "workspace:*",
     "@brixchat/whatsapp-web": "workspace:*",
-    "bullmq": "^5.58.5",
-    "ioredis": "5.10.1",
-    "nodemailer": "^9.0.5",
+    "bullmq": "^6.3.4",
+    "ioredis": "6.0.0",
+    "nodemailer": "^10.0.2",
     "postgres": "^3.4.7",
-    "sharp": "^0.35.3",
-    "tsx": "^4.20.5"
+    "sharp": "^0.35.4",
+    "tsx": "^4.23.13"
   },
   "devDependencies": {
     "@types/nodemailer": "^8.0.1",
