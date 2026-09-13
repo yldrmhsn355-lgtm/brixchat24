@@ -13,7 +13,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "vitest": "^3.2.4"
+    "vitest": "^5.0.0"
   },
   "dependencies": {
     "@openrouter/agent": "0.8.0",
