@@ -82,10 +82,10 @@
   "devDependencies": {
     "@playwright/test": "^1.61.1",
     "@types/node": "^22.19.19",
-    "drizzle-orm": "^0.45.2",
+    "drizzle-orm": "^0.45.4",
     "postgres": "^3.4.9",
     "prettier": "^3.9.5",
-    "tsx": "^4.20.5",
+    "tsx": "^4.23.15",
     "turbo": "^2.5.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
